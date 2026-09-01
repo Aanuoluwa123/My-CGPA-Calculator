@@ -268,9 +268,38 @@ function showSemesterHistory() {
         <td>Semester ${i + 1}</td>
         <td>${Number(s.gpa).toFixed(2)}</td>
         <td>${s.total_credit}</td>
+        <td>
+          <button onclick="deleteSemester('${s.id}')">Delete</button>
+        </td>
       </tr>
     `;
   }
+}
+
+// Deletes a semester row from Supabase. Because the "courses" table has
+// semester_id references semesters(id) on delete cascade, all of that
+// semester's courses are removed automatically on the database side.
+async function deleteSemester(id) {
+
+  let confirmed = confirm("Delete this semester and all its courses? This can't be undone.");
+
+  if (!confirmed) {
+    return;
+  }
+
+  let { error } = await _supabase
+    .from("semesters")
+    .delete()
+    .eq("id", id);
+
+  if (error) {
+    console.error("Delete semester error:", error.message);
+    alert("Could not delete semester");
+    return;
+  }
+
+  await loadSemesters();
+  calculateCGPA();
 }
 
 // ---------- CGPA (across all saved semesters) ----------

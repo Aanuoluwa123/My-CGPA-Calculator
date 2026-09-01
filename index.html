@@ -38,9 +38,9 @@
             </div>
             <h2>Add course</h2>
 
-            <input id="courseName" placeholder="Course Code (e.g. CSC101)" type="text" maxlength="6">
-            <input id="score" type="text" placeholder="Score (%)" inputmode="numeric">
-            <input id="credit" type="text" placeholder="Credit Unit" inputmode="numeric">
+            <input id="courseName" placeholder="Course Name">
+            <input id="score" type="number" placeholder="Score (%)">
+            <input id="credit" type="number" placeholder="Credit Unit">
 
         
             <button onclick="addCourse()">Add Course</button>
@@ -71,6 +71,7 @@
                     <th>Semester</th>
                     <th>GPA</th>
                     <th>Credits</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody id="semesterHistory"></tbody>
